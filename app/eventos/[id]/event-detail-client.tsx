@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import type { SessionUser } from "@/lib/auth";
+import { SiteHeader } from "@/components/site-header";
 
 type Evento = {
   id: string;
@@ -32,52 +31,6 @@ const pageWrapperStyle: CSSProperties = {
   flexDirection: "column",
 };
 
-const topBarStyle: CSSProperties = {
-  backgroundColor: "#b86a26",
-  color: "#fef2e4",
-  padding: "24px 40px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  gap: "28px",
-  flexWrap: "wrap",
-};
-
-const topBarLinksStyle: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "24px",
-  fontSize: "1rem",
-};
-
-const topBarLinkStyle: CSSProperties = {
-  color: "#fef2e4",
-  textDecoration: "none",
-  fontWeight: 500,
-};
-
-const topBarUserArea: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "12px",
-};
-
-const topBarButtonStyle: CSSProperties = {
-  border: "none",
-  backgroundColor: "#fef2e4",
-  color: "#b86a26",
-  borderRadius: "18px",
-  padding: "10px 18px",
-  fontWeight: 600,
-  cursor: "pointer",
-  boxShadow: "0 8px 18px rgba(0,0,0,0.15)",
-};
-
-const topBarUserLabel: CSSProperties = {
-  color: "#fef2e4",
-  fontWeight: 600,
-};
-
 const mainStyle: CSSProperties = {
   flex: 1,
   padding: "32px 16px 72px",
@@ -100,7 +53,7 @@ const backButtonStyle: CSSProperties = {
 };
 
 const cardStyle: CSSProperties = {
-  backgroundColor: "#fff9ed",
+  backgroundColor: "#fefae0",
   borderRadius: "24px",
   boxShadow: "0 24px 50px rgba(41,55,28,0.16)",
   overflow: "hidden",
@@ -217,7 +170,7 @@ const galleryImageStyle: CSSProperties = {
 
 const formCardStyle: CSSProperties = {
   background:
-    "linear-gradient(180deg, rgba(188,109,36,0.12) 0%, rgba(97,109,55,0.12) 100%)",
+    "linear-gradient(180deg, rgba(188,109,36,0.15) 0%, rgba(97,109,55,0.12) 100%)",
   borderRadius: "20px",
   padding: "24px 26px",
   border: "1px solid rgba(188,109,36,0.28)",
@@ -261,7 +214,7 @@ const inputStyle: CSSProperties = {
   padding: "12px 14px",
   fontSize: "0.95rem",
   transition: "border-color 0.2s ease",
-  backgroundColor: "#fffaf0",
+  backgroundColor: "#fefae0",
   color: "#303030",
 };
 
@@ -307,7 +260,7 @@ const modalOverlayStyle: CSSProperties = {
 };
 
 const modalCardStyle: CSSProperties = {
-  backgroundColor: "#fff9ed",
+  backgroundColor: "#fefae0",
   borderRadius: "20px",
   padding: "26px 30px",
   maxWidth: "360px",
@@ -427,50 +380,27 @@ export default function EventDetailClient({
     }
   };
 
+  const headerActionSlot = (
+    <div className="event-detail-header-actions">
+      <span className="event-detail-header-username">{user.usuario}</span>
+      <button className="event-detail-header-button" onClick={handleLogout}>
+        Cerrar sesión
+      </button>
+    </div>
+  );
+
   return (
     <div style={pageWrapperStyle}>
-      <header style={topBarStyle}>
-        <Link
-          href="/"
-          style={{ display: "flex", alignItems: "center", gap: "12px" }}
-        >
-          <Image
-            src="/logo.png"
-            alt="Conectando logo"
-            width={170}
-            height={40}
-            priority
-          />
-        </Link>
+      <SiteHeader actionSlot={headerActionSlot} />
 
-        <nav style={topBarLinksStyle}>
-          <Link href="/" style={topBarLinkStyle}>
-            Inicio
-          </Link>
-          <Link href="/about-us" style={topBarLinkStyle} target="_blank" rel="noopener noreferrer">
-            About us
-          </Link>
-          <Link href="/eventos" style={topBarLinkStyle}>
-            Talleres
-          </Link>
-        </nav>
-
-        <div style={topBarUserArea}>
-          <span style={topBarUserLabel}>{user.usuario}</span>
-          <button style={topBarButtonStyle} onClick={handleLogout}>
-            Cerrar sesión
-          </button>
-        </div>
-      </header>
-
-      <main style={mainStyle}>
-        <section style={wrapperStyle}>
+      <main style={mainStyle} className="event-detail-main">
+        <section style={wrapperStyle} className="event-detail-wrapper">
           <button style={backButtonStyle} onClick={volverAEventos}>
             ← Volver a talleres
           </button>
 
-          <article style={cardStyle}>
-            <div style={heroWrapperStyle}>
+          <article style={cardStyle} className="event-detail-card">
+            <div style={heroWrapperStyle} className="event-detail-hero">
               <div
                 style={{
                   ...heroImageStyle,
@@ -487,7 +417,7 @@ export default function EventDetailClient({
               </div>
             </div>
 
-            <div style={contentWrapperStyle}>
+            <div style={contentWrapperStyle} className="event-detail-content">
               <div style={descriptionColumnStyle}>
                 <section>
                   <h2 style={sectionTitleStyle}>Descripción</h2>
@@ -504,7 +434,7 @@ export default function EventDetailClient({
                 {imagenesSecundarias.length > 0 && (
                   <section style={{ marginTop: "28px" }}>
                     <h3 style={sectionSubtitleStyle}>Galería</h3>
-                    <div style={galleryStyle}>
+                    <div style={galleryStyle} className="event-detail-gallery">
                       {imagenesSecundarias.map((imagen, idx) => (
                         <div
                           key={`${imagen || "imagen"}-${idx}`}
@@ -519,7 +449,7 @@ export default function EventDetailClient({
                 )}
               </div>
 
-              <aside style={formCardStyle}>
+              <aside style={formCardStyle} className="event-detail-form">
                 <h2 style={formTitleStyle}>Reserva tu cupo</h2>
                 <p style={formSubtitleStyle}>
                   Registra tu asistencia para recibir confirmaciones y
@@ -583,7 +513,7 @@ export default function EventDetailClient({
           <div style={modalOverlayStyle}>
             <div style={modalCardStyle}>
               <h2 style={{ margin: "0 0 10px" }}>Reserva confirmada ✅</h2>
-              <p style={{ margin: 0, color: "#334155", lineHeight: 1.5 }}>
+              <p style={{ margin: 0, color: "#303030", lineHeight: 1.5 }}>
                 Hemos registrado tu asistencia.
                 {reservaId && (
                   <>
@@ -612,6 +542,60 @@ export default function EventDetailClient({
             </div>
           </div>
         )}
+
+        <style jsx>{`
+        .event-detail-header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-weight: 600;
+          color: #fefae0;
+        }
+
+        .event-detail-header-button {
+          border: none;
+          background-color: #616d37;
+          color: #fefae0;
+          border-radius: 18px;
+          padding: 10px 18px;
+          font-weight: 600;
+          cursor: pointer;
+          box-shadow: 0 8px 18px rgba(41, 55, 28, 0.25);
+        }
+
+          @media (max-width: 900px) {
+            :global(.event-detail-wrapper) {
+              padding: 0 18px !important;
+            }
+
+            :global(.event-detail-content) {
+              grid-template-columns: 1fr !important;
+              padding: 24px 24px 32px !important;
+            }
+
+            .event-detail-header-actions {
+              flex-wrap: wrap;
+            }
+
+            .event-detail-header-button {
+              width: 100%;
+            }
+          }
+
+          @media (max-width: 640px) {
+            :global(.event-detail-hero) {
+              min-height: 220px !important;
+            }
+
+            :global(.event-detail-form) {
+              width: 100%;
+            }
+
+            :global(.event-detail-gallery) {
+              grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+            }
+          }
+        `}</style>
       </main>
     </div>
   );

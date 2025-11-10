@@ -287,7 +287,7 @@ const subtitleStyle: CSSProperties = {
 const tabsWrapperStyle: CSSProperties = {
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
-  backgroundColor: "#f1e4cc",
+  backgroundColor: "rgba(221,162,93,0.25)",
   borderRadius: "12px",
   padding: "4px",
   gap: "6px",
@@ -327,7 +327,7 @@ const inputStyle: CSSProperties = {
   border: "1px solid rgba(188,109,36,0.45)",
   padding: "12px 14px",
   fontSize: "0.95rem",
-  backgroundColor: "#fffaf0",
+  backgroundColor: "#fefae0",
   transition: "border-color 0.2s ease, box-shadow 0.2s ease",
   color: "#303030",
 };

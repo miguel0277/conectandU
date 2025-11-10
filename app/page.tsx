@@ -1,56 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { SiteHeader } from "@/components/site-header";
 
 const homeStyle: CSSProperties = {
   minHeight: "100vh",
   fontFamily: "Inter, system-ui, sans-serif",
-  backgroundColor: "#fef8f1",
-};
-
-const heroStyle: CSSProperties = {
-  backgroundColor: "#b86a26",
-  color: "#fef2e4",
-  padding: "28px 48px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  gap: "32px",
-};
-
-const linksStyle: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "28px",
-  fontSize: "1rem",
-};
-
-const linkStyle: CSSProperties = {
-  color: "#fef2e4",
-  textDecoration: "none",
-  fontWeight: 500,
-};
-
-const enterWrapperStyle: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
-};
-
-const enterIconStyle: CSSProperties = {
-  width: "26px",
-  height: "26px",
-  borderRadius: "50%",
-  backgroundColor: "#fef2e4",
-  color: "#b86a26",
-  display: "grid",
-  placeItems: "center",
-  fontWeight: 600,
-};
-
-const enterLinkStyle: CSSProperties = {
-  ...linkStyle,
-  fontWeight: 600,
+  backgroundColor: "#fefae0",
+  color: "#303030",
 };
 
 const mainContentStyle: CSSProperties = {
@@ -58,11 +14,12 @@ const mainContentStyle: CSSProperties = {
 };
 
 const highlightStyle: CSSProperties = {
-  backgroundColor: "#fff5ea",
+  backgroundColor: "#fefae0",
   borderRadius: "24px",
   padding: "48px",
-  boxShadow: "0 24px 50px rgba(184, 106, 38, 0.2)",
-  color: "#71431a",
+  border: "1px solid rgba(221,162,93,0.5)",
+  boxShadow: "0 24px 60px rgba(41,55,28,0.12)",
+  color: "#303030",
   display: "flex",
   flexDirection: "column",
   gap: "18px",
@@ -72,13 +29,14 @@ const highlightTitleStyle: CSSProperties = {
   margin: 0,
   fontSize: "2.4rem",
   fontWeight: 700,
-  color: "#8b4f1f",
+  color: "#29371c",
 };
 
 const highlightTextStyle: CSSProperties = {
   margin: 0,
-  fontSize: "1.06rem",
+  fontSize: "1.05rem",
   lineHeight: 1.7,
+  color: "#303030",
 };
 
 const ctaRowStyle: CSSProperties = {
@@ -94,11 +52,11 @@ const primaryCtaStyle: CSSProperties = {
   justifyContent: "center",
   padding: "14px 28px",
   borderRadius: "999px",
-  backgroundColor: "#b86a26",
-  color: "#fef2e4",
+  backgroundColor: "#bc6d24",
+  color: "#fefae0",
   textDecoration: "none",
   fontWeight: 600,
-  boxShadow: "0 14px 30px rgba(184, 106, 38, 0.24)",
+  boxShadow: "0 16px 28px rgba(188,109,36,0.35)",
 };
 
 const secondaryCtaStyle: CSSProperties = {
@@ -107,16 +65,17 @@ const secondaryCtaStyle: CSSProperties = {
   justifyContent: "center",
   padding: "14px 28px",
   borderRadius: "999px",
-  border: "2px solid #b86a26",
-  color: "#b86a26",
+  border: "2px solid #616d37",
+  color: "#616d37",
   textDecoration: "none",
   fontWeight: 600,
+  backgroundColor: "transparent",
 };
 
 const footerStyle: CSSProperties = {
   marginTop: "60px",
   textAlign: "center",
-  color: "#a86b38",
+  color: "#616d37",
   fontSize: "0.9rem",
 };
 
@@ -143,7 +102,8 @@ const heroBackground: CSSProperties = {
 const heroOverlay: CSSProperties = {
   position: "absolute",
   inset: 0,
-  backgroundColor: "#616d378e",
+  background:
+    "linear-gradient(120deg, rgba(41,55,28,0.85), rgba(97,109,55,0.8))",
 };
 
 const heroContent: CSSProperties = {
@@ -159,9 +119,10 @@ const heroContent: CSSProperties = {
 
 const heroHeading: CSSProperties = {
   margin: 0,
-  fontSize: "2.8rem",
+  fontSize: "2.6rem",
   lineHeight: 1.3,
   fontWeight: 700,
+  color: "#fefae0",
 };
 
 const heroSubheading: CSSProperties = {
@@ -180,72 +141,46 @@ const heroButtonStyle: CSSProperties = {
   justifyContent: "center",
   padding: "12px 28px",
   borderRadius: "999px",
-  backgroundColor: "#b86a26",
-  color: "#fefae0",
+  backgroundColor: "#dda25d",
+  color: "#303030",
   textDecoration: "none",
   fontWeight: 600,
-  boxShadow: "0 16px 30px rgba(184, 106, 38, 0.38)",
+  boxShadow: "0 16px 30px rgba(221,162,93,0.4)",
 };
 
 export default function HomePage() {
+  const headerAction = (
+    <>
+      <Link href="/auth?mode=login&redirect=%2Feventos">Entrar</Link>
+      <Link
+        href="/auth?mode=register&redirect=%2Feventos"
+        style={{ backgroundColor: "#bc6d24" }}
+      >
+        Registrarse
+      </Link>
+    </>
+  );
+
   return (
     <div style={homeStyle}>
-      <header style={heroStyle}>
-        <Link
-          href="/"
-          style={{ display: "flex", alignItems: "center", gap: "12px" }}
-        >
-          <Image
-            src="/logo.png"
-            alt="Conectando logo"
-            width={200}
-            height={48}
-            priority
-          />
-        </Link>
-
-        <nav style={linksStyle}>
-          <Link href="#acerca" style={linkStyle}>
-            Acerca de
-          </Link>
-          <Link href="/eventos" style={linkStyle}>
-            Talleres
-          </Link>
-          <Link href="/about-us" style={linkStyle}>
-            About us
-          </Link>
-          <Link href="#comunidad" style={linkStyle}>
-            Comunidad
-          </Link>
-          <Link href="#contacto" style={linkStyle}>
-            Contacto
-          </Link>
-        </nav>
-
-        <div style={enterWrapperStyle}>
-          <div style={enterIconStyle}>👤</div>
-          <Link
-            href="/auth?mode=login&redirect=%2Feventos"
-            style={enterLinkStyle}
-          >
-            Entrar
-          </Link>
-        </div>
-      </header>
+      <SiteHeader actionSlot={headerAction} />
 
       <main style={mainContentStyle}>
-        <section style={heroGalleryWrapper}>
+        <section
+          style={heroGalleryWrapper}
+          className="home-hero-gallery"
+        >
           <div style={heroBackground} />
           <div style={heroOverlay} />
-          <div style={heroContent}>
-            <h1 style={heroHeading}>
+          <div style={heroContent} className="home-hero-content">
+            <h1 style={heroHeading} className="home-hero-heading">
               Plataforma dedicada a reservar talleres y espacios enfocados en el
               bienestar y la creatividad
             </h1>
-            <p style={heroSubheading}>
+            <p style={heroSubheading} className="home-hero-subheading">
               Desconéctate, reconéctate, crece
             </p>
-            <div style={heroButtonRow}>
+            <div style={heroButtonRow} className="home-hero-actions">
               <Link
                 href="/about-us"
                 style={heroButtonStyle}
@@ -258,29 +193,34 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section style={highlightStyle} id="acerca">
-          <h1 style={highlightTitleStyle}>
+        <section
+          style={highlightStyle}
+          id="acerca"
+          className="home-highlight"
+        >
+          <h1 style={highlightTitleStyle} className="home-highlight-title">
             Bienvenido a Conectando
           </h1>
-          <p style={highlightTextStyle}>
+          <p style={highlightTextStyle} className="home-highlight-text">
             Una comunidad universitaria para descubrir experiencias
             presenciales y virtuales. Aquí encontrarás talleres,
             encuentros y actividades que fortalecen las habilidades de la
             comunidad académica.
           </p>
-          <p style={highlightTextStyle}>
+          <p style={highlightTextStyle} className="home-highlight-text">
             Explora nuestros talleres activos y guarda tu cupo.
             Inicia sesión para recibir recordatorios, materiales y
             novedades pensadas para ti.
           </p>
 
-          <div style={ctaRowStyle}>
-            <Link href="/eventos" style={primaryCtaStyle}>
+          <div style={ctaRowStyle} className="home-highlight-cta">
+            <Link href="/eventos" style={primaryCtaStyle} className="home-primary-cta">
               Ver talleres disponibles
             </Link>
             <Link
               href="/auth?mode=register&redirect=%2Feventos"
               style={secondaryCtaStyle}
+              className="home-secondary-cta"
             >
               Crear cuenta
             </Link>
@@ -288,7 +228,7 @@ export default function HomePage() {
         </section>
 
         <section id="comunidad" style={{ marginTop: "72px" }}>
-          <h2 style={{ color: "#8b4f1f", fontSize: "1.8rem" }}>
+          <h2 style={{ color: "#29371c", fontSize: "1.8rem" }}>
             Comunidad conectada
           </h2>
           <p style={highlightTextStyle}>
@@ -299,14 +239,14 @@ export default function HomePage() {
         </section>
 
         <section id="contacto" style={{ marginTop: "56px" }}>
-          <h2 style={{ color: "#8b4f1f", fontSize: "1.8rem" }}>
+          <h2 style={{ color: "#29371c", fontSize: "1.8rem" }}>
             ¿Necesitas ayuda?
           </h2>
           <p style={highlightTextStyle}>
             Escríbenos a{" "}
             <a
               href="mailto:conectando@universidad.edu"
-              style={{ color: "#b86a26", fontWeight: 600 }}
+              style={{ color: "#bc6d24", fontWeight: 600 }}
             >
               conectando@universidad.edu
             </a>{" "}

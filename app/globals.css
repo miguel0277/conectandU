@@ -24,3 +24,59 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media (max-width: 900px) {
+  .home-hero-gallery {
+    flex-direction: column !important;
+    min-height: 420px !important;
+    padding: 36px 20px !important;
+  }
+
+  .home-hero-content {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .home-hero-heading {
+    font-size: 1.9rem !important;
+  }
+
+  .home-hero-actions {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+
+  .home-highlight {
+    padding: 32px !important;
+  }
+
+  .about-content {
+    margin: 32px 16px;
+    padding: 28px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-hero-gallery {
+    padding: 28px 16px !important;
+  }
+
+  .home-highlight {
+    padding: 24px !important;
+  }
+
+  .home-highlight-title {
+    font-size: 2rem !important;
+  }
+
+  .home-highlight-cta {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .home-primary-cta,
+  .home-secondary-cta {
+    width: 100% !important;
+    text-align: center;
+  }
+}

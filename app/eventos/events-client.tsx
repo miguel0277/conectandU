@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import type { SessionUser } from "@/lib/auth";
+import { SiteHeader } from "@/components/site-header";
 
 type Evento = {
   id: string;
@@ -26,63 +26,6 @@ const pageWrapperStyle: CSSProperties = {
   fontFamily: "Inter, system-ui, sans-serif",
   display: "flex",
   flexDirection: "column",
-};
-
-const topBarStyle: CSSProperties = {
-  backgroundColor: "#b86a26",
-  color: "#fef2e4",
-  padding: "24px 40px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  gap: "28px",
-  flexWrap: "wrap",
-};
-
-const topBarLinksStyle: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "24px",
-  fontSize: "1rem",
-};
-
-const topBarLinkStyle: CSSProperties = {
-  color: "#fef2e4",
-  textDecoration: "none",
-  fontWeight: 500,
-};
-
-const topBarUserArea: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "12px",
-};
-
-const topBarEnterIcon: CSSProperties = {
-  width: "28px",
-  height: "28px",
-  borderRadius: "50%",
-  backgroundColor: "#fef2e4",
-  color: "#b86a26",
-  display: "grid",
-  placeItems: "center",
-  fontWeight: 600,
-};
-
-const topBarButtonStyle: CSSProperties = {
-  border: "none",
-  backgroundColor: "#fef2e4",
-  color: "#b86a26",
-  borderRadius: "18px",
-  padding: "10px 18px",
-  fontWeight: 600,
-  cursor: "pointer",
-  boxShadow: "0 8px 18px rgba(0,0,0,0.15)",
-};
-
-const topBarUserLabel: CSSProperties = {
-  color: "#fef2e4",
-  fontWeight: 600,
 };
 
 const mainStyle: CSSProperties = {
@@ -176,7 +119,7 @@ const cardStyle: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   borderRadius: "20px",
-  backgroundColor: "#fff9ed",
+  backgroundColor: "#fefae0",
   boxShadow: "0 24px 40px rgba(41,55,28,0.12)",
   overflow: "hidden",
   border: "1px solid rgba(188,109,36,0.24)",
@@ -349,60 +292,32 @@ export default function EventsClient({
 
   const loginUrl = "/auth?mode=login&redirect=%2Feventos";
   const registerUrl = "/auth?mode=register&redirect=%2Feventos";
+  const headerActionSlot = user ? (
+    <div className="events-header-actions">
+      <span className="events-header-username">{user.usuario}</span>
+      <button className="events-header-button" onClick={handleLogout}>
+        Cerrar sesión
+      </button>
+    </div>
+  ) : (
+    <div className="events-header-actions">
+      <div className="events-header-avatar">👤</div>
+      <Link href={loginUrl} className="events-header-link">
+        Entrar
+      </Link>
+      <Link href={registerUrl} className="events-header-link">
+        Registrarse
+      </Link>
+    </div>
+  );
 
   return (
     <div style={pageWrapperStyle}>
-      <header style={topBarStyle}>
-        <Link
-          href="/"
-          style={{ display: "flex", alignItems: "center", gap: "12px" }}
-        >
-          <Image
-            src="/logo.png"
-            alt="Conectando logo"
-            width={170}
-            height={40}
-            priority
-          />
-        </Link>
+      <SiteHeader actionSlot={headerActionSlot} />
 
-        <nav style={topBarLinksStyle}>
-          <Link href="/" style={topBarLinkStyle}>
-            Inicio
-          </Link>
-          <Link href="/about-us" style={topBarLinkStyle} target="_blank" rel="noopener noreferrer">
-            About us
-          </Link>
-          <Link href="/eventos" style={topBarLinkStyle}>
-            Talleres
-          </Link>
-        </nav>
-
-        <div style={topBarUserArea}>
-          {user ? (
-            <>
-              <span style={topBarUserLabel}>{user.usuario}</span>
-              <button style={topBarButtonStyle} onClick={handleLogout}>
-                Cerrar sesión
-              </button>
-            </>
-          ) : (
-            <>
-              <div style={topBarEnterIcon}>👤</div>
-              <Link href={loginUrl} style={topBarLinkStyle}>
-                Entrar
-              </Link>
-              <Link href={registerUrl} style={topBarLinkStyle}>
-                Registrarse
-              </Link>
-            </>
-          )}
-        </div>
-      </header>
-
-      <main style={mainStyle}>
-        <header style={headerStyle}>
-          <div style={headerTextBlock}>
+      <main style={mainStyle} className="events-main">
+        <header style={headerStyle} className="events-main-header">
+          <div style={headerTextBlock} className="events-header-text">
             <p style={greetingStyle}>{saludo}</p>
             <h1 style={titleStyle}>Talleres disponibles</h1>
             <p style={subtitleStyle}>
@@ -412,7 +327,7 @@ export default function EventsClient({
             </p>
           </div>
 
-          <div style={actionsStyle}>
+          <div style={actionsStyle} className="events-header-cta">
             {user?.rol === "ADMIN" ? (
               <Link href="/eventos/administrar" style={primaryButtonStyle}>
                 Agregar evento
@@ -442,7 +357,7 @@ export default function EventsClient({
         )}
 
         {!loading && !error && (
-          <section style={gridStyle}>
+          <section style={gridStyle} className="events-grid">
             {eventos.map((evento) => (
               <article key={evento.id} style={cardStyle}>
                 <div style={imageWrapperStyle}>
@@ -456,7 +371,7 @@ export default function EventsClient({
                 </div>
                 <div style={cardContentStyle}>
                   <h2 style={cardTitleStyle}>{evento.titulo}</h2>
-                  <p style={metaStyle}>
+                  <p style={metaStyle} className="events-card-meta">
                     <span>📅 {evento.fecha}</span>
                     <span>📍 {evento.lugar}</span>
                   </p>
@@ -481,6 +396,91 @@ export default function EventsClient({
           </section>
         )}
       </main>
+      <style jsx>{`
+        .events-header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-weight: 600;
+        }
+
+        .events-header-avatar {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background-color: #fefae0;
+          color: #bc6d24;
+          display: grid;
+          place-items: center;
+          font-weight: 600;
+        }
+
+        .events-header-link {
+          color: #fefae0;
+          text-decoration: none;
+        }
+
+        .events-header-button {
+          border: none;
+          background-color: #616d37;
+          color: #fefae0;
+          border-radius: 18px;
+          padding: 10px 18px;
+          font-weight: 600;
+          cursor: pointer;
+          box-shadow: 0 8px 18px rgba(41, 55, 28, 0.25);
+        }
+
+        .events-header-username {
+          color: #fefae0;
+        }
+
+        @media (max-width: 900px) {
+          :global(.events-main) {
+            padding: 32px 18px 60px !important;
+          }
+
+          :global(.events-main-header) {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 18px !important;
+          }
+
+          :global(.events-header-text) {
+            gap: 8px !important;
+          }
+
+          .events-header-actions {
+            width: 100%;
+            flex-wrap: wrap;
+          }
+
+          .events-header-button {
+            width: 100%;
+            justify-content: center;
+          }
+
+          :global(.events-header-cta) {
+            width: 100%;
+          }
+        }
+
+        @media (max-width: 640px) {
+          :global(.events-grid) {
+            grid-template-columns: minmax(0, 1fr) !important;
+          }
+
+          :global(.events-card-meta) {
+            flex-direction: column !important;
+            gap: 8px !important;
+            align-items: flex-start !important;
+          }
+
+          .events-header-actions {
+            gap: 8px;
+          }
+        }
+      `}</style>
     </div>
   );
 }

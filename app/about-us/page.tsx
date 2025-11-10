@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { CSSProperties } from "react";
+import { SiteHeader } from "@/components/site-header";
 
 const pageStyle: CSSProperties = {
   minHeight: "100vh",
@@ -9,39 +9,16 @@ const pageStyle: CSSProperties = {
   flexDirection: "column",
 };
 
-const heroStyle: CSSProperties = {
-  backgroundColor: "#b86a26",
-  color: "#fef2e4",
-  padding: "24px 40px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  gap: "24px",
-  flexWrap: "wrap",
-};
-
-const heroLinks: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "24px",
-  fontSize: "1rem",
-};
-
-const heroLinkStyle: CSSProperties = {
-  color: "#fef2e4",
-  textDecoration: "none",
-  fontWeight: 500,
-};
-
 const contentStyle: CSSProperties = {
   flex: 1,
   maxWidth: "960px",
   margin: "60px auto",
-  backgroundColor: "#fff9ed",
+  backgroundColor: "#fefae0",
   borderRadius: "24px",
   padding: "48px",
-  boxShadow: "0 24px 50px rgba(41,55,28,0.12)",
-  color: "#29371c",
+  border: "1px solid rgba(221,162,93,0.5)",
+  boxShadow: "0 24px 60px rgba(41,55,28,0.12)",
+  color: "#303030",
   display: "flex",
   flexDirection: "column",
   gap: "18px",
@@ -57,7 +34,7 @@ const paragraphStyle: CSSProperties = {
   margin: 0,
   fontSize: "1.1rem",
   lineHeight: 1.7,
-  color: "#4b5e2a",
+  color: "#303030",
 };
 
 const highlightCardStyle: CSSProperties = {
@@ -72,19 +49,9 @@ const highlightCardStyle: CSSProperties = {
 export default function AboutUsPage() {
   return (
     <div style={pageStyle}>
-      <header style={heroStyle}>
-        <h1 style={{ margin: 0, fontSize: "1.8rem" }}>Conectando</h1>
-        <nav style={heroLinks}>
-          <Link href="/" style={heroLinkStyle}>
-            Inicio
-          </Link>
-          <Link href="/eventos" style={heroLinkStyle}>
-            Talleres
-          </Link>
-        </nav>
-      </header>
+      <SiteHeader />
 
-      <main style={contentStyle}>
+      <main style={contentStyle} className="about-content">
         <h2 style={titleStyle}>Sobre Conectando</h2>
         <p style={paragraphStyle}>
           Conectando es una iniciativa universitaria que busca reunir a la
@@ -102,7 +69,7 @@ export default function AboutUsPage() {
           <h3 style={{ margin: 0, fontSize: "1.4rem", fontWeight: 700 }}>
             ¿Qué encontrarás?
           </h3>
-          <ul style={{ margin: 0, paddingLeft: "20px", color: "#4b5e2a" }}>
+          <ul style={{ margin: 0, paddingLeft: "20px", color: "#616d37" }}>
             <li>Talleres prácticos orientados al bienestar emocional y físico.</li>
             <li>Laboratorios creativos que estimulan la colaboración.</li>
             <li>
