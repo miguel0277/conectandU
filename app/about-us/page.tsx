@@ -1,10 +1,11 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 
 const pageStyle: CSSProperties = {
   minHeight: "100vh",
   backgroundColor: "#fefae0",
-  fontFamily: "Inter, system-ui, sans-serif",
   display: "flex",
   flexDirection: "column",
 };
@@ -47,9 +48,19 @@ const highlightCardStyle: CSSProperties = {
 };
 
 export default function AboutUsPage() {
+  const headerAction = (
+    <Link
+      href="/auth?mode=login&redirect=%2Feventos"
+      className="header-icon-link"
+      aria-label="Autenticación"
+    >
+      <Image src="/person.svg" alt="" width={22} height={22} />
+    </Link>
+  );
+
   return (
     <div style={pageStyle}>
-      <SiteHeader />
+      <SiteHeader actionSlot={headerAction} />
 
       <main style={contentStyle} className="about-content">
         <h2 style={titleStyle}>Sobre Conectando</h2>

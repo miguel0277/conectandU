@@ -253,7 +253,6 @@ const mainStyle: CSSProperties = {
   alignItems: "center",
   justifyContent: "center",
   padding: "32px 16px",
-  fontFamily: "Inter, system-ui, sans-serif",
 };
 
 const cardStyle: CSSProperties = {

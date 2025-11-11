@@ -36,44 +36,43 @@ async function main() {
     data: [
       {
         id: "1",
-        titulo: "Semana de la Innovación",
+        titulo: "Crea, conecta y disfruta",
         fecha: "28 Oct 2025 - 10:00 AM",
         lugar: "Auditorio Principal, Bloque A",
         descripcionLarga:
-          "Charlas sobre inteligencia artificial aplicada, robótica y proyectos de emprendimiento universitario.",
-        imagenPrincipal: "/evento-innovacion.png",
+          "Un encuentro para dejar fluir la creatividad mientras disfrutas de una copa y buena compañía. Pinta, ríe y vive un momento para ti.",
+        imagenPrincipal: "/Conectando/Taller2022_2-773x1030.jpg",
         responsable: "Dirección de Investigación y Transferencia",
         cupo: "150 asistentes",
         imagenesSecundarias:
-          "/evento-innovacion.png,/evento-innovacion.png",
+          "/Conectando/Taller2022_2-773x1030.jpg",
         creadoPorId: admin.id,
       },
       {
         id: "2",
-        titulo: "Feria de Bienestar Universitario",
+        titulo: "Puntada a puntada",
         fecha: "30 Oct 2025 - 2:00 PM",
         lugar: "Plazoleta Central",
         descripcionLarga:
-          "Actividades de salud, cultura y deporte. Espacios de inclusión y bienestar para toda la comunidad.",
-        imagenPrincipal: "/feria-bienestar.png",
+          "Aprende crochet desde cero o mejora tus técnicas mientras te relajas tejiendo. Cada puntada es una pausa, una conexión contigo mismo.",
+        imagenPrincipal: "/Conectando/IMG_4855-bis.jpg",
         responsable: "Bienestar Universitario",
         cupo: "Abierto a toda la comunidad",
-        imagenesSecundarias:
-          "/feria-bienestar.png,/feria-bienestar.png",
+        imagenesSecundarias: "/Conectando/IMG_4855-bis.jpg",
         creadoPorId: admin.id,
       },
       {
         id: "3",
-        titulo: "Taller de Empleabilidad",
+        titulo: "Presente pleno",
         fecha: "2 Nov 2025 - 8:00 AM",
         lugar: "Sala de Sistemas 204",
         descripcionLarga:
-          "Entrenamiento práctico para mejorar hoja de vida y entrevistas técnicas.",
-        imagenPrincipal: "/taller-empleo.png",
+          "Descubre el poder de la atención plena y aprende a habitar el momento presente con ejercicios de mindfulness guiado.",
+        imagenPrincipal: "/Conectando/practicar-mindulfness-1024x1024.webp",
         responsable: "Oficina de Egresados",
         cupo: "30 cupos",
         imagenesSecundarias:
-          "/taller-empleo.png,/taller-empleo.png",
+          "/Conectando/practicar-mindulfness-1024x1024.webp",
         creadoPorId: admin.id,
       },
     ],
