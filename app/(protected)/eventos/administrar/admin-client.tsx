@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
@@ -226,7 +226,6 @@ const mainStyle: CSSProperties = {
   minHeight: "100vh",
   padding: "40px 20px 64px",
   background: "linear-gradient(180deg,#f7fbff 0%,#ffffff 50%)",
-  fontFamily: "Inter, system-ui, sans-serif",
 };
 
 const layoutStyle: CSSProperties = {

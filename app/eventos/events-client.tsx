@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties } from "react";
@@ -23,7 +24,6 @@ type EventsClientProps = {
 const pageWrapperStyle: CSSProperties = {
   minHeight: "100vh",
   backgroundColor: "#fefae0",
-  fontFamily: "Inter, system-ui, sans-serif",
   display: "flex",
   flexDirection: "column",
 };
@@ -300,15 +300,13 @@ export default function EventsClient({
       </button>
     </div>
   ) : (
-    <div className="events-header-actions">
-      <div className="events-header-avatar">👤</div>
-      <Link href={loginUrl} className="events-header-link">
-        Entrar
-      </Link>
-      <Link href={registerUrl} className="events-header-link">
-        Registrarse
-      </Link>
-    </div>
+    <Link
+      href={loginUrl}
+      className="header-icon-link"
+      aria-label="Autenticación"
+    >
+      <Image src="/person.svg" alt="" width={22} height={22} />
+    </Link>
   );
 
   return (

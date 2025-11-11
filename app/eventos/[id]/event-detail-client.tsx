@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
 import { useRouter } from "next/navigation";
@@ -26,7 +28,6 @@ type EventDetailClientProps = {
 const pageWrapperStyle: CSSProperties = {
   minHeight: "100vh",
   backgroundColor: "#fefae0",
-  fontFamily: "Inter, system-ui, sans-serif",
   display: "flex",
   flexDirection: "column",
 };
@@ -380,13 +381,21 @@ export default function EventDetailClient({
     }
   };
 
-  const headerActionSlot = (
+  const headerActionSlot = user ? (
     <div className="event-detail-header-actions">
       <span className="event-detail-header-username">{user.usuario}</span>
       <button className="event-detail-header-button" onClick={handleLogout}>
         Cerrar sesión
       </button>
     </div>
+  ) : (
+    <Link
+      href="/auth?mode=login&redirect=%2Feventos"
+      className="header-icon-link"
+      aria-label="Autenticación"
+    >
+      <Image src="/person.svg" alt="" width={22} height={22} />
+    </Link>
   );
 
   return (
