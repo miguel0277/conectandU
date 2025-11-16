@@ -12,6 +12,31 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes homeIntro {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-shell {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -27,19 +52,162 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Outfit Bold";
+  src: url("/fonts/Outfit-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Outfit", Arial, Helvetica, sans-serif;
 }
 
+.home-shell {
+  animation: homeIntro 480ms ease-out both;
+}
+
+.home-hero-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 24px 45px rgba(41, 55, 28, 0.18);
+  transform: translateZ(0);
+  transition: transform 400ms ease, box-shadow 400ms ease;
+}
+
+.home-hero-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms ease;
+  border-radius: 12px;
+}
+
+.home-hero-card::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  background: rgba(97, 109, 55, 0.65);
+  color: #fefae0;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.home-hero-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 32px 55px rgba(41, 55, 28, 0.24);
+}
+
+.home-hero-card:hover img {
+  transform: scale(1.08);
+}
+
+.home-hero-card:hover::after {
+  opacity: 1;
+}
+
+.home-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.home-hero-cards {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.nuevos-bar-track {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  animation: nuevosBarSlide 22s linear infinite;
+  width: max-content;
+  will-change: transform;
+  white-space: nowrap;
+}
+
+@keyframes nuevosBarSlide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.talleres-slider {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.talleres-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.instructors-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.instructor-card {
+  animation: instructorFloat 3.8s ease-in-out infinite;
+}
+
+.instructors-column.column-b .instructor-card {
+  animation-delay: 1.4s;
+}
+
+@keyframes instructorFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .instructor-card {
+    animation: none;
+  }
+}
+
 
 
 @media (max-width: 900px) {
   .home-hero-gallery {
-    flex-direction: column !important;
-    min-height: 420px !important;
-    padding: 36px 20px !important;
+    display: block !important;
+    padding: 32px 18px !important;
   }
 
   .home-hero-content {
@@ -47,13 +215,57 @@ body {
     padding: 0 !important;
   }
 
+  .home-hero-copy {
+    text-align: center !important;
+    align-items: center !important;
+  }
+
   .home-hero-heading {
-    font-size: 1.9rem !important;
+    font-size: 2.4rem !important;
+    text-align: center !important;
+  }
+
+  .home-hero-copy {
+    text-align: center !important;
+    align-items: center !important;
   }
 
   .home-hero-actions {
     width: 100% !important;
-    justify-content: flex-start !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    margin-top: 24px !important;
+  }
+  .home-hero-actions .home-hero-card {
+    max-width: 320px !important;
+    margin: 0 auto !important;
+  }
+
+  .home-hero-cards {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 18px !important;
+    margin-top: 20px !important;
+  }
+
+  .home-hero-cards .home-hero-card {
+    width: 100% !important;
+    max-width: 340px !important;
+  }
+
+  .home-hero-cards {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 18px !important;
+    margin-top: 20px !important;
+  }
+
+  .home-hero-cards .home-hero-card {
+    width: 100% !important;
+    max-width: 340px !important;
   }
 
   .home-highlight {
@@ -64,11 +276,60 @@ body {
     margin: 32px 16px;
     padding: 28px !important;
   }
+
+  .section-talleres {
+    padding: 48px 20px !important;
+  }
+
+  .community-hub {
+    padding: 48px 0 32px !important;
+  }
+
+  .community-inner {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 28px !important;
+    text-align: center !important;
+  }
+
+  .instructors-showcase {
+    padding: 48px 0 !important;
+  }
+
+  .instructors-inner {
+    grid-template-columns: minmax(0, 1fr) !important;
+    text-align: center !important;
+    gap: 32px !important;
+  }
+
+  .instructors-gallery {
+    height: 420px !important;
+  }
+
+  .booking-banner {
+    padding: 60px 24px !important;
+  }
 }
 
 @media (max-width: 600px) {
   .home-hero-gallery {
-    padding: 28px 16px !important;
+    padding: 24px 14px !important;
+  }
+
+  .home-hero-copy {
+    gap: 14px !important;
+  }
+
+  .home-hero-heading {
+    font-size: 1.8rem !important;
+  }
+
+  .home-hero-cards {
+    gap: 16px !important;
+    margin-top: 16px !important;
+  }
+
+  .home-hero-cards .home-hero-card {
+    max-width: 300px !important;
   }
 
   .home-highlight {
@@ -88,5 +349,26 @@ body {
   .home-secondary-cta {
     width: 100% !important;
     text-align: center;
+  }
+
+  .instructors-gallery {
+    grid-template-columns: minmax(0, 1fr) !important;
+    height: 460px !important;
+  }
+
+  .instructor-card {
+    height: 150px !important;
+  }
+
+  .booking-banner h2 {
+    font-size: 1.7rem !important;
+  }
+
+  .booking-banner p {
+    font-size: 1rem !important;
+  }
+
+  .booking-banner {
+    padding: 48px 20px !important;
   }
 }

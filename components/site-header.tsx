@@ -13,7 +13,7 @@ type NavLink = {
 
 const defaultLinks: NavLink[] = [
   { label: "Inicio", href: "/" },
-  { label: "¿Quienes somos?", href: "/about-us" },
+  { label: "Acerca de", href: "/about-us" },
   { label: "Talleres", href: "/eventos" },
   { label: "Contacto", href: "/#contacto" },
 ];
@@ -55,10 +55,10 @@ export function SiteHeader({
       <div className={innerClassName}>
         <Link href="/" className={styles.brand} onClick={handleLinkClick}>
           <Image
-            src="/logo.png"
+            src="Conectando/Group.svg"
             alt="Conectando"
-            width={200}
-            height={56}
+            width={80}
+            height={46}
             priority={false}
           />
         </Link>
