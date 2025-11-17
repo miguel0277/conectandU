@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 type TallerItem = {
   id: string;
@@ -24,13 +24,13 @@ const carouselWrapperStyle: CSSProperties = {
 const cardsWrapperStyle: CSSProperties = {
   display: "flex",
   justifyContent: "center",
-  gap: "68px",
+  gap: "clamp(20px, 5vw, 68px)",
   minHeight: "380px",
 };
 
 const cardStyle: CSSProperties = {
   flex: "0 0 auto",
-  width: "320px",
+  width: "clamp(280px, 30vw, 320px)",
   borderRadius: "18px",
   background: "#ffffff",
   boxShadow: "0 30px 80px rgba(41, 55, 28, 0.2)",
@@ -97,11 +97,11 @@ const arrowButtonBase: CSSProperties = {
 };
 
 const arrowLeftStyle: CSSProperties = {
-  left: "200px",
+  left: "clamp(16px, 10vw, 200px)",
 };
 
 const arrowRightStyle: CSSProperties = {
-  right: "200px",
+  right: "clamp(16px, 10vw, 200px)",
 };
 
 const fadeWrapperStyle: CSSProperties = {
@@ -111,13 +111,40 @@ const fadeWrapperStyle: CSSProperties = {
 export function TalleresCarousel({ eventos }: TalleresCarouselProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const [isFading, setIsFading] = useState(false);
-  const perPage = 3;
+  const [perPage, setPerPage] = useState(3);
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    const updatePerPage = () => {
+      const width = window.innerWidth;
+      setViewportWidth(width);
+      if (width < 600) {
+        setPerPage(1);
+      } else if (width < 900) {
+        setPerPage(2);
+      } else {
+        setPerPage(3);
+      }
+    };
+    updatePerPage();
+    window.addEventListener("resize", updatePerPage);
+    return () => window.removeEventListener("resize", updatePerPage);
+  }, []);
+
+  const isTouchMode = viewportWidth > 0 && viewportWidth < 1024;
+
   const totalPages = Math.max(1, Math.ceil(eventos.length / perPage));
 
   const visibleItems = useMemo(() => {
     const start = currentPage * perPage;
     return eventos.slice(start, start + perPage);
-  }, [currentPage, eventos]);
+  }, [currentPage, eventos, perPage]);
+
+  useEffect(() => {
+    if (isTouchMode && currentPage !== 0) {
+      setCurrentPage(0);
+    }
+  }, [isTouchMode, currentPage]);
 
   const handleNavigate = (direction: "next" | "prev") => {
     if (isFading) return;
@@ -140,17 +167,36 @@ export function TalleresCarousel({ eventos }: TalleresCarouselProps) {
     return null;
   }
 
+  const wrapperStyle = {
+    ...cardsWrapperStyle,
+    opacity: isFading ? 0.2 : 1,
+    transform: isFading ? "translateY(12px)" : "translateY(0)",
+    justifyContent: isTouchMode ? "flex-start" : cardsWrapperStyle.justifyContent,
+    overflowX: isTouchMode ? "auto" : undefined,
+    scrollSnapType: isTouchMode ? "x mandatory" : undefined,
+    padding: isTouchMode ? "8px 6px 18px" : undefined,
+    gap: isTouchMode ? "20px" : cardsWrapperStyle.gap,
+    WebkitOverflowScrolling: isTouchMode ? "touch" : undefined,
+  } as CSSProperties;
+
+  const cardResponsiveStyle: CSSProperties = isTouchMode
+    ? {
+        ...cardStyle,
+        width: "min(85vw, 320px)",
+        scrollSnapAlign: "start",
+      }
+    : cardStyle;
+
+  const itemsToRender = isTouchMode ? eventos : visibleItems;
+
   return (
     <div style={carouselWrapperStyle}>
       <div
-        style={{
-          ...cardsWrapperStyle,
-          opacity: isFading ? 0.2 : 1,
-          transform: isFading ? "translateY(12px)" : "translateY(0)",
-        }}
+        style={wrapperStyle}
+        className="talleres-cards-wrapper"
       >
-        {visibleItems.map((evento) => (
-          <article key={evento.id} style={cardStyle}>
+        {itemsToRender.map((evento) => (
+          <article key={evento.id} style={cardResponsiveStyle} className="talleres-card">
             <div style={imageWrapperStyle}>
               <Image
                 src={evento.imagenPrincipal}
@@ -174,7 +220,7 @@ export function TalleresCarousel({ eventos }: TalleresCarouselProps) {
           </article>
         ))}
       </div>
-      {totalPages > 1 && (
+      {!isTouchMode && totalPages > 1 && (
         <>
           <button
             type="button"

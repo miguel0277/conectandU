@@ -17,6 +17,7 @@
 .wrapperExpanded {
   height: auto;
   padding-bottom: 20px;
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .inner {
@@ -190,6 +191,9 @@
 
   .navOpen {
     display: flex;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 0 0 10px 10px;
+    padding: 10px 0;
   }
 
   .actions {
@@ -205,6 +209,8 @@
 
   .actionsOpen {
     display: flex;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 0 0 10px 10px;
   }
 
   .actions :global(a),

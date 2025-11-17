@@ -119,6 +119,19 @@ body {
   opacity: 1;
 }
 
+.talleres-populares-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 48px;
+  width: 100%;
+  justify-items: center;
+}
+
+.talleres-populares-card {
+  width: 100%;
+  max-width: 330px;
+}
+
 .home-hero-copy {
   display: flex;
   flex-direction: column;
@@ -225,6 +238,37 @@ body {
     text-align: center !important;
   }
 
+  .home-hero-subheading {
+    font-size: 1.15rem !important;
+    line-height: 1.65 !important;
+    max-width: 520px !important;
+  }
+
+  .talleres-populares-grid {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding: 0 12px 16px !important;
+    gap: 20px !important;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .talleres-populares-grid::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .talleres-populares-grid::-webkit-scrollbar-thumb {
+    background: rgba(188, 109, 36, 0.35);
+    border-radius: 999px;
+  }
+
+  .talleres-populares-card {
+    flex: 0 0 280px;
+    max-width: 320px !important;
+    scroll-snap-align: start;
+  }
+
   .home-hero-copy {
     text-align: center !important;
     align-items: center !important;
@@ -253,6 +297,172 @@ body {
   .home-hero-cards .home-hero-card {
     width: 100% !important;
     max-width: 340px !important;
+  }
+
+  .home-hero-cards {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 18px !important;
+    margin-top: 20px !important;
+  }
+
+  .home-hero-cards .home-hero-card {
+    width: 100% !important;
+    max-width: 340px !important;
+  }
+
+  .home-highlight {
+    padding: 32px !important;
+  }
+
+  .about-content {
+    margin: 32px 16px;
+    padding: 28px !important;
+  }
+
+  .section-talleres {
+    padding: 48px 20px !important;
+  }
+
+  .community-hub {
+    padding: 48px 0 32px !important;
+  }
+
+  .community-inner {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 28px !important;
+    text-align: center !important;
+  }
+
+  .instructors-showcase {
+    padding: 48px 0 !important;
+  }
+
+  .instructors-inner {
+    grid-template-columns: minmax(0, 1fr) !important;
+    text-align: center !important;
+    gap: 32px !important;
+  }
+
+  .instructors-gallery {
+    height: 420px !important;
+  }
+
+  .booking-banner {
+    padding: 60px 24px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .home-hero-gallery {
+    padding: 40px 32px !important;
+  }
+
+  .home-hero-content {
+    width: 100% !important;
+  }
+
+  .home-hero-copy {
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .home-hero-heading {
+    font-size: 3rem !important;
+    text-align: center !important;
+  }
+
+  .home-hero-actions {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    margin-top: 24px !important;
+  }
+
+  .home-hero-actions .home-hero-card {
+    max-width: 320px !important;
+    margin: 0 auto !important;
+  }
+
+  .home-hero-cards {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 18px !important;
+    margin-top: 20px !important;
+  }
+
+  .home-hero-cards .home-hero-card {
+    width: 100% !important;
+    max-width: 400px !important;
+  }
+
+  .section-talleres {
+    padding: 64px 24px !important;
+  }
+
+  .community-hub {
+    padding: 64px 24px !important;
+  }
+
+  .community-inner {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 40px !important;
+    text-align: center !important;
+  }
+
+  .instructors-showcase {
+    padding: 64px 24px !important;
+  }
+
+  .instructors-inner {
+    grid-template-columns: minmax(0, 1fr) !important;
+    text-align: center !important;
+    gap: 40px !important;
+  }
+
+  .instructors-gallery {
+    height: 480px !important;
+  }
+
+  .booking-banner {
+    padding: 80px 32px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-hero-gallery {
+    display: block !important;
+    padding: 32px 18px !important;
+  }
+
+  .home-hero-content {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .home-hero-copy {
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .home-hero-heading {
+    font-size: 2.4rem !important;
+    text-align: center !important;
+  }
+
+  .home-hero-actions {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    margin-top: 24px !important;
+  }
+  .home-hero-actions .home-hero-card {
+    max-width: 320px !important;
+    margin: 0 auto !important;
   }
 
   .home-hero-cards {
@@ -371,4 +581,168 @@ body {
   .booking-banner {
     padding: 48px 20px !important;
   }
+
+  .testimonials-section {
+    padding: 32px 12px 40px !important;
+  }
+
+  .testimonials-section h2 {
+    font-size: 1.8rem !important;
+  }
+
+  .testimonials-section p {
+    font-size: 0.95rem !important;
+  }
+
+  .testimonials-section article {
+    padding: 32px 24px !important;
+    min-height: 180px !important;
+  }
+
+  .testimonials-section article p {
+    font-size: 1rem !important;
+  }
+
+  .site-footer {
+    padding: 48px 24px 24px !important;
+  }
+
+  .site-footer h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .site-footer .footer-inner {
+    gap: 32px !important;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+
+  .home-hero-gallery {
+    padding: 16px 12px !important;
+    height: auto !important;
+  }
+
+  .home-hero-copy {
+    gap: 12px !important;
+  }
+
+  .home-hero-heading {
+    font-size: 1.5rem !important;
+  }
+
+  .home-hero-subheading {
+    font-size: 1.05rem !important;
+    line-height: 1.7 !important;
+    width: 100% !important;
+  }
+
+  .home-hero-cards {
+    gap: 12px !important;
+    margin-top: 12px !important;
+  }
+
+  .home-hero-cards .home-hero-card {
+    max-width: 280px !important;
+  }
+
+  .section-talleres {
+    padding: 32px 16px !important;
+  }
+
+  .talleres-title {
+    font-size: 2rem !important;
+  }
+
+  .talleres-subtitle {
+    font-size: 1rem !important;
+  }
+
+  .community-hub {
+    padding: 32px 16px !important;
+  }
+
+  .community-copy {
+    font-size: 1.4rem !important;
+    margin-top: 100px !important;
+  }
+
+  .community-button {
+    margin-top: 60px !important;
+  }
+
+  .instructors-showcase {
+    padding: 32px 16px !important;
+  }
+
+  .instructors-title {
+    font-size: 2rem !important;
+  }
+
+  .instructors-subtitle {
+    font-size: 1rem !important;
+  }
+
+  .instructors-copy {
+    font-size: 0.95rem !important;
+  }
+
+  .instructors-gallery {
+    height: 400px !important;
+  }
+
+  .instructor-card {
+    height: 120px !important;
+  }
+
+  .booking-banner {
+    padding: 40px 16px !important;
+  }
+
+  .booking-title {
+    font-size: 1.5rem !important;
+  }
+
+  .booking-text {
+    font-size: 0.95rem !important;
+  }
+
+  .testimonials-section {
+    padding: 24px 8px 32px !important;
+  }
+
+  .testimonials-section h2 {
+    font-size: 1.6rem !important;
+  }
+
+  .testimonials-section p {
+    font-size: 0.9rem !important;
+  }
+
+  .testimonials-section article {
+    padding: 28px 20px !important;
+    min-height: 160px !important;
+  }
+
+  .testimonials-section article p {
+    font-size: 0.95rem !important;
+  }
+
+  .site-footer {
+    padding: 40px 16px 24px !important;
+  }
+
+  .site-footer h2 {
+    font-size: 1.4rem !important;
+  }
+
+  .site-footer .footer-inner {
+    gap: 24px !important;
+  }
+
 }
