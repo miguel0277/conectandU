@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { Reveal } from "@/components/reveal";
 import { prisma } from "@/lib/prisma";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
+import { TalleresCarousel } from "@/components/talleres-carousel";
 
 const normalizeImageSrc = (src: string) =>
   src
@@ -351,6 +352,31 @@ const communityGraphicStyle: CSSProperties = {
   overflow: "hidden",
 };
 
+const nuestrosTalleresSectionStyle: CSSProperties = {
+  padding: "80px min(6vw, 171px)",
+  background: "linear-gradient(180deg, #fffbf3 0%, #f5e7d6 55%, #fff4e4 100%)",
+};
+
+const nuestrosTalleresInnerStyle: CSSProperties = {
+  maxWidth: "1200px",
+  margin: "0 auto",
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+  alignItems: "center",
+};
+
+const talleresCarouselContainerStyle: CSSProperties = {
+  width: "100%",
+  marginTop: "16px",
+};
+
+const nuestrosTalleresFooterStyle: CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "16px",
+};
+
 const talleresPopularesSectionStyle: CSSProperties = {
   padding: "40px 0 32px",
 };
@@ -506,6 +532,34 @@ const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
           </section>
         </Reveal>
 
+
+<Reveal>
+          <section
+            style={nuestrosTalleresSectionStyle}
+            className="section-talleres"
+            aria-labelledby="nuestros-talleres-heading"
+          >
+            <div style={nuestrosTalleresInnerStyle}>
+              <div style={talleresPopularesHeaderStyle}>
+                <h2 style={talleresTitleStyle} id="nuestros-talleres-heading">
+                  Nuestros talleres
+                </h2>
+                <p style={talleresSubtitleStyle}>
+                  Descubre la variedad de talleres y actividades que ofrecemos para
+                  promover tu bienestar y creatividad.
+                </p>
+              </div>
+              <div style={talleresCarouselContainerStyle}>
+                <TalleresCarousel eventos={carouselItems} />
+              </div>
+              <div style={nuestrosTalleresFooterStyle}>
+                <Link href="/eventos" style={seeMoreButtonStyle}>
+                  Ver más talleres
+                </Link>
+              </div>
+            </div>
+          </section>
+        </Reveal>
         <Reveal>
           <section id="comunidad" style={communitySectionStyle} className="community-hub">
             <div style={communityInnerStyle} className="community-inner">
@@ -545,6 +599,9 @@ const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
             </div>
           </section>
         </Reveal>
+
+        
+
 <Reveal>
           <section style={talleresPopularesSectionStyle}>
             <div style={talleresPopularesHeaderStyle}>

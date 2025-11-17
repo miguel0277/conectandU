@@ -16,6 +16,16 @@ type TalleresCarouselProps = {
   eventos: TallerItem[];
 };
 
+const getPerPageForWidth = (width: number) => {
+  if (width < 600) {
+    return 1;
+  }
+  if (width < 900) {
+    return 2;
+  }
+  return 3;
+};
+
 const carouselWrapperStyle: CSSProperties = {
   position: "relative",
   marginTop: "16px",
@@ -97,11 +107,11 @@ const arrowButtonBase: CSSProperties = {
 };
 
 const arrowLeftStyle: CSSProperties = {
-  left: "clamp(16px, 10vw, 200px)",
+  left: "clamp(-140px, -8vw, -56px)",
 };
 
 const arrowRightStyle: CSSProperties = {
-  right: "clamp(16px, 10vw, 200px)",
+  right: "clamp(-140px, -8vw, -56px)",
 };
 
 const fadeWrapperStyle: CSSProperties = {
@@ -111,27 +121,27 @@ const fadeWrapperStyle: CSSProperties = {
 export function TalleresCarousel({ eventos }: TalleresCarouselProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const [isFading, setIsFading] = useState(false);
-  const [perPage, setPerPage] = useState(3);
-  const [viewportWidth, setViewportWidth] = useState(0);
+  const [viewportWidth, setViewportWidth] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth : 0,
+  );
+  const [perPage, setPerPage] = useState(() =>
+    getPerPageForWidth(
+      typeof window !== "undefined" ? window.innerWidth : 1200,
+    ),
+  );
 
   useEffect(() => {
     const updatePerPage = () => {
       const width = window.innerWidth;
       setViewportWidth(width);
-      if (width < 600) {
-        setPerPage(1);
-      } else if (width < 900) {
-        setPerPage(2);
-      } else {
-        setPerPage(3);
-      }
+      setPerPage(getPerPageForWidth(width));
     };
     updatePerPage();
     window.addEventListener("resize", updatePerPage);
     return () => window.removeEventListener("resize", updatePerPage);
   }, []);
 
-  const isTouchMode = viewportWidth > 0 && viewportWidth < 1024;
+  const isMobileSwipe = viewportWidth > 0 && viewportWidth <= 768;
 
   const totalPages = Math.max(1, Math.ceil(eventos.length / perPage));
 
@@ -141,10 +151,10 @@ export function TalleresCarousel({ eventos }: TalleresCarouselProps) {
   }, [currentPage, eventos, perPage]);
 
   useEffect(() => {
-    if (isTouchMode && currentPage !== 0) {
+    if (isMobileSwipe && currentPage !== 0) {
       setCurrentPage(0);
     }
-  }, [isTouchMode, currentPage]);
+  }, [isMobileSwipe, currentPage]);
 
   const handleNavigate = (direction: "next" | "prev") => {
     if (isFading) return;
@@ -171,23 +181,36 @@ export function TalleresCarousel({ eventos }: TalleresCarouselProps) {
     ...cardsWrapperStyle,
     opacity: isFading ? 0.2 : 1,
     transform: isFading ? "translateY(12px)" : "translateY(0)",
-    justifyContent: isTouchMode ? "flex-start" : cardsWrapperStyle.justifyContent,
-    overflowX: isTouchMode ? "auto" : undefined,
-    scrollSnapType: isTouchMode ? "x mandatory" : undefined,
-    padding: isTouchMode ? "8px 6px 18px" : undefined,
-    gap: isTouchMode ? "20px" : cardsWrapperStyle.gap,
-    WebkitOverflowScrolling: isTouchMode ? "touch" : undefined,
+    justifyContent: isMobileSwipe ? "flex-start" : cardsWrapperStyle.justifyContent,
+    overflowX: isMobileSwipe ? "auto" : undefined,
+    scrollSnapType: isMobileSwipe ? "x mandatory" : undefined,
+    padding: isMobileSwipe ? "8px 16px 18px" : undefined,
+    gap: isMobileSwipe ? "16px" : cardsWrapperStyle.gap,
+    WebkitOverflowScrolling: isMobileSwipe ? "touch" : undefined,
+    scrollbarWidth: isMobileSwipe ? "none" : undefined,
+    msOverflowStyle: isMobileSwipe ? "none" : undefined,
   } as CSSProperties;
 
-  const cardResponsiveStyle: CSSProperties = isTouchMode
+  const cardResponsiveStyle: CSSProperties = isMobileSwipe
     ? {
         ...cardStyle,
-        width: "min(85vw, 320px)",
-        scrollSnapAlign: "start",
+        width: "min(92vw, 420px)",
+        maxWidth: "420px",
+        scrollSnapAlign: "center",
+        borderRadius: "22px",
+        boxShadow: "0 20px 45px rgba(41, 55, 28, 0.18)",
       }
     : cardStyle;
 
-  const itemsToRender = isTouchMode ? eventos : visibleItems;
+  const cardContentResponsiveStyle: CSSProperties = isMobileSwipe
+    ? {
+        ...cardContentStyle,
+        padding: "24px 20px 26px",
+      }
+    : cardContentStyle;
+
+  const itemsToRender = isMobileSwipe ? eventos : visibleItems;
+  const showDesktopArrows = !isMobileSwipe && totalPages > 1;
 
   return (
     <div style={carouselWrapperStyle}>
@@ -206,7 +229,7 @@ export function TalleresCarousel({ eventos }: TalleresCarouselProps) {
                 sizes="(max-width: 900px) 100vw, 320px"
               />
             </div>
-            <div style={cardContentStyle}>
+            <div style={cardContentResponsiveStyle}>
               <h3 style={cardTitleStyle}>{evento.titulo}</h3>
               <p style={cardDescriptionStyle}>
                 {evento.descripcionLarga.length > 140
@@ -220,7 +243,7 @@ export function TalleresCarousel({ eventos }: TalleresCarouselProps) {
           </article>
         ))}
       </div>
-      {!isTouchMode && totalPages > 1 && (
+      {showDesktopArrows && (
         <>
           <button
             type="button"
