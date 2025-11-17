@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { SiteHeader } from "@/components/site-header";
 
 type AuthMode = "login" | "register";
 
@@ -204,55 +206,72 @@ export default function AuthClient({
     </form>
   );
 
+  const headerAction = (
+    <Link href="/eventos" aria-label="Explorar talleres disponibles">
+      Explorar talleres
+    </Link>
+  );
+
   return (
-    <main style={mainStyle}>
-      <section style={cardStyle}>
-        <header style={headerStyle}>
-          <h1 style={titleStyle}>Reserva de eventos universitarios</h1>
-          <p style={subtitleStyle}>
-            Ingresa con tu cuenta o regístrate para gestionar y reservar eventos.
-          </p>
-        </header>
+    <div style={pageShellStyle}>
+      <SiteHeader actionSlot={headerAction} />
+      <main style={mainStyle}>
+        <section style={cardStyle}>
+          <header style={headerStyle}>
+            <h1 style={titleStyle}>Reserva de eventos universitarios</h1>
+            <p style={subtitleStyle}>
+              Ingresa con tu cuenta o regístrate para gestionar y reservar eventos.
+            </p>
+          </header>
 
-        <div style={tabsWrapperStyle}>
-          <button
-            style={tabButtonStyle(mode === "login")}
-            onClick={() => handleModeChange("login")}
-            type="button"
-          >
-            Iniciar sesión
-          </button>
-          <button
-            style={tabButtonStyle(mode === "register")}
-            onClick={() => handleModeChange("register")}
-            type="button"
-          >
-            Registrarse
-          </button>
-        </div>
+          <div style={tabsWrapperStyle}>
+            <button
+              style={tabButtonStyle(mode === "login")}
+              onClick={() => handleModeChange("login")}
+              type="button"
+            >
+              Iniciar sesión
+            </button>
+            <button
+              style={tabButtonStyle(mode === "register")}
+              onClick={() => handleModeChange("register")}
+              type="button"
+            >
+              Registrarse
+            </button>
+          </div>
 
-        {error && <p style={errorStyle}>{error}</p>}
+          {error && <p style={errorStyle}>{error}</p>}
 
-        {mode === "login" ? renderLogin() : renderRegister()}
+          {mode === "login" ? renderLogin() : renderRegister()}
 
-        <footer style={footerStyle}>
-          <p style={{ margin: 0, color: "#556" }}>
-            ¿Olvidaste tu contraseña? Contacta al administrador del sistema.
-          </p>
-        </footer>
-      </section>
-    </main>
+          <footer style={footerStyle}>
+            <p style={{ margin: 0, color: "#556" }}>
+              ¿Olvidaste tu contraseña? Contacta al administrador del sistema.
+            </p>
+          </footer>
+        </section>
+      </main>
+    </div>
   );
 }
 
-const mainStyle: CSSProperties = {
+const pageShellStyle: CSSProperties = {
   minHeight: "100vh",
   background:
     "linear-gradient(140deg, rgba(41,55,28,0.92), rgba(97,109,55,0.82))",
   display: "flex",
+  flexDirection: "column",
+};
+
+const mainStyle: CSSProperties = {
+  flex: 1,
+  width: "100%",
+  display: "flex",
   alignItems: "center",
   justifyContent: "center",
   padding: "32px 16px",
+  backgroundColor: "transparent",
 };
 
 const cardStyle: CSSProperties = {

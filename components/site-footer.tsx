@@ -79,8 +79,8 @@ const floatingButtonStyle: CSSProperties = {
 export function SiteFooter() {
   return (
     <>
-      <footer style={footerStyle} id="contacto">
-        <div style={footerInnerStyle}>
+      <footer style={footerStyle} id="contacto" className="site-footer">
+        <div style={footerInnerStyle} className="footer-inner">
           <div style={contactColumnStyle}>
             <h2 style={{ margin: 0, fontSize: "1.8rem" }}>Contáctame</h2>
             <p style={{ margin: 0 }}>Tunja, Boyacá</p>

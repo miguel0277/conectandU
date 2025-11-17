@@ -31,9 +31,10 @@ export function TestimonialsCarousel({ testimonials }: TestimonialsCarouselProps
   return (
     <section
       style={{
-        padding: "72px 16px 64px",
+        padding: "clamp(48px, 8vw, 72px) 16px clamp(48px, 8vw, 64px)",
         background: "linear-gradient(180deg, #fefaf0, #f1e5ce)",
       }}
+      className="testimonials-section"
     >
       <div
         style={{

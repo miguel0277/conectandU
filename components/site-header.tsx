@@ -13,7 +13,6 @@ type NavLink = {
 
 const defaultLinks: NavLink[] = [
   { label: "Inicio", href: "/" },
-  { label: "Acerca de", href: "/about-us" },
   { label: "Talleres", href: "/eventos" },
   { label: "Contacto", href: "/#contacto" },
 ];
@@ -51,7 +50,7 @@ export function SiteHeader({
     .join(" ");
 
   return (
-    <header className={styles.wrapper}>
+    <header className={`${styles.wrapper} ${menuOpen ? styles.wrapperExpanded : ""}`}>
       <div className={innerClassName}>
         <Link href="/" className={styles.brand} onClick={handleLinkClick}>
           <Image

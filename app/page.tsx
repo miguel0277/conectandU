@@ -4,7 +4,6 @@ import type { CSSProperties } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { Reveal } from "@/components/reveal";
 import { prisma } from "@/lib/prisma";
-import { TalleresCarousel } from "@/components/talleres-carousel";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 
 const normalizeImageSrc = (src: string) =>
@@ -34,26 +33,6 @@ const seeMoreButtonStyle: CSSProperties = {
   boxShadow: "0 16px 28px rgba(188,109,36,0.35)",
 };
 
-const talleresSectionStyle: CSSProperties = {
-  padding: "84px 0 48px",
-  background: "linear-gradient(360deg, #fff9f0ff, #f9f9f9ff)",
-};
-
-const talleresHeaderStyle: CSSProperties = {
-  textAlign: "center",
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
-  alignItems: "center",
-};
-
-const talleresDividerStyle: CSSProperties = {
-  width: "64px",
-  height: "4px",
-  borderRadius: "999px",
-  backgroundColor: "#4b5e26",
-};
-
 const talleresTitleStyle: CSSProperties = {
   margin: 0,
   fontSize: "2.4rem",
@@ -76,16 +55,17 @@ const talleresFooterStyle: CSSProperties = {
 };
 
 const talleresPopularesGridStyle: CSSProperties = {
-  display: "flex",
-  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
   gap: "50px",
   justifyItems: "center",
-  justifyContent:"center"
+  justifyContent: "center",
 };
 
 const talleresPopularesCardStyle: CSSProperties = {
   width: "100%",
   maxWidth: "330px",
+  flex: "0 0 auto",
   borderRadius: "12px",
   backgroundColor: "#fffce9",
   boxShadow: "0 30px 60px rgba(41, 55, 28, 0.1)",
@@ -262,9 +242,11 @@ const heroHeading: CSSProperties = {
 
 const heroSubheading: CSSProperties = {
   margin: 0,
-  fontSize: "1.8rem",
-  width:"600px",
+  fontSize: "1.4rem",
+  maxWidth: "640px",
+  width: "100%",
   color: "#616d37",
+  lineHeight: 1.6,
 };
 
 const heroButtonStyle: CSSProperties = {
@@ -446,7 +428,7 @@ export default async function HomePage() {
   while (heroDisplayCards.length < 3) {
     heroDisplayCards.push(heroSource[heroSource.length - 1]);
   }
-  const heroLabels = ["Arte", "Croché", "Aire libre"];
+  const heroLabels = ["Arte", "Crochet", "Aire libre"];
   const carouselItems = talleres.length > 0 ? talleres : heroFallback;
 const nuevosBarItems = Array.from({ length: 6 }, (_, idx) => idx);
 const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
@@ -457,7 +439,7 @@ const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
       className="header-icon-link"
       aria-label="Autenticación"
     >
-      <Image src="/person_icon.svg" alt="" width={22} height={22} />
+      <Image src="/person.svg" alt="" width={22} height={22} />
     </Link>
   );
 
@@ -467,15 +449,15 @@ const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
 
       <main style={mainContentStyle}>
         <Reveal>
-          <section style={heroSectionStyle} className="home-hero-gallery">
+          <section style={heroSectionStyle} className="home-hero-gallery hero-section">
             <div style={heroCopyStyle} className="home-hero-copy">
-              <h1 style={heroHeading}>
+              <h1 style={heroHeading} className="home-hero-heading">
                 Donde el bienestar y la creatividad se encuentran
               </h1>
-              <p style={heroSubheading}>
+              <p style={heroSubheading} className="home-hero-subheading">
                 Descubre talleres y experiencias pensadas para reconectar contigo y con lo que te inspira.
               </p>
-              <Link href="#acerca" style={heroButtonStyle}>
+              <Link href="/auth?mode=login&redirect=%2Feventos" style={heroButtonStyle}>
                 Explorar experiencias
               </Link>
             </div>
@@ -525,25 +507,6 @@ const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
         </Reveal>
 
         <Reveal>
-          <section style={talleresSectionStyle} id="acerca" className="section-talleres">
-            <div style={talleresHeaderStyle}>
-              <div style={talleresDividerStyle} />
-              <h2 style={talleresTitleStyle}>Nuestros talleres</h2>
-              <p style={talleresSubtitleStyle}>
-                Descubre la variedad de talleres y actividades que ofrecemos para
-                promover tu bienestar y creatividad.
-              </p>
-            </div>
-            <TalleresCarousel eventos={carouselItems} />
-            <div style={talleresFooterStyle}>
-              <Link href="/eventos" style={seeMoreButtonStyle}>
-                Ver más talleres
-              </Link>
-            </div>
-          </section>
-        </Reveal>
-
-        <Reveal>
           <section id="comunidad" style={communitySectionStyle} className="community-hub">
             <div style={communityInnerStyle} className="community-inner">
               <div>
@@ -557,14 +520,14 @@ const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
                     style={{ width: "70%", height: "auto" }}
                   />
                 </div>
-                <p style={communityCopyStyle}>
+                <p style={communityCopyStyle} className="community-copy">
                   En Conectando creemos que las mejores ideas nacen cuando las
                   personas se reúnen.
                   <br />Creamos un espacio donde el arte, el bienestar y la
                   creatividad se encuentran para inspirarte y ayudarte a
                   reconectar contigo y con los demás.
                 </p>
-                <Link href="/about-us" style={communityButtonStyle}>
+                <Link href="/auth?mode=login&redirect=%2Feventos" style={communityButtonStyle} className="community-button">
                   Conocer más
                 </Link>
               </div>
@@ -592,11 +555,12 @@ const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
                 dejar fluir tu creatividad.
               </p>
             </div>
-            <div style={talleresPopularesGridStyle}>
+            <div style={talleresPopularesGridStyle} className="talleres-populares-grid">
               {carouselItems.slice(0, 4).map((evento) => (
                 <article
                   key={`popular-${evento.id}`}
                   style={talleresPopularesCardStyle}
+                  className="talleres-populares-card"
                 >
                     <div style={talleresPopularesImageStyle}>
                       <Image
@@ -624,11 +588,11 @@ const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
           <section style={instructorsSectionStyle} className="instructors-showcase">
             <div style={instructorsInnerStyle} className="instructors-inner">
               <div>
-                <h2 style={instructorsTitleStyle}>Nuestros instructores</h2>
-                <p style={instructorsSubtitleStyle}>
+                <h2 style={instructorsTitleStyle} className="instructors-title">Nuestros instructores</h2>
+                <p style={instructorsSubtitleStyle} className="instructors-subtitle">
                   Personas que inspiran, acompañan y transforman
                 </p>
-                <p style={instructorsCopyStyle}>
+                <p style={instructorsCopyStyle} className="instructors-copy">
                   Nuestros instructores son apasionados por enseñar y compartir
                   experiencias auténticas. Cada uno aporta talento, cercanía y
                   conocimiento para acompañarte en tu proceso creativo y
@@ -670,10 +634,10 @@ const repeatedNuevosBarItems = [...nuevosBarItems, ...nuevosBarItems];
         <Reveal>
           <section style={{ padding: "0 0px" }} className="booking-banner-shell">
             <div style={bookingBannerStyle} className="booking-banner">
-              <h2 style={{ fontSize: "2.3rem", margin: 0 }}>
+              <h2 style={{ fontSize: "2.3rem", margin: 0 }} className="booking-title">
                 Cupos limitados, agenda fácil y rápido
               </h2>
-              <p style={{ marginTop: "12px", fontSize: "1.05rem" }}>
+              <p style={{ marginTop: "12px", fontSize: "1.05rem" }} className="booking-text">
                 Reserva tu taller favorito y comienza tu experiencia con Conectando hoy mismo.
               </p>
               <Link href="/auth?mode=login&redirect=%2Feventos" style={bookingButtonStyle}>
